@@ -1,4 +1,4 @@
 Gridles
 =======
 
-This is a CSS grid framework built with LESS.
+A CSS grid framework built with LESS
