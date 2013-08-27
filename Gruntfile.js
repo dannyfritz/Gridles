@@ -2,24 +2,21 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     less: {
+      options: {
+        report: 'min'
+      },
       development: {
-        options: {
-          paths: ['less'],
-          report: 'min'
-        },
         files: {
-          'dist/Gridles.css': 'build/Gridles.less'
+          'build/Gridles.css': 'less/Gridles.less'
         }
       },
       production: {
         options: {
-          paths: ['less'],
-          report: 'min',
           compress: true,
           yuicompress: true
         },
         files: {
-          'build/Gridles.min.css': 'build/Gridles.less'
+          'build/Gridles.min.css': 'less/Gridles.less'
         }
       }
     },
@@ -28,7 +25,7 @@ module.exports = function(grunt) {
         text: 'Gridles',
         options: {
           font: 'alligator2',
-          log: true
+          log: false
         }
       }
     },
@@ -43,35 +40,35 @@ module.exports = function(grunt) {
           '  Built: <%= grunt.template.today("yyyy-mm-dd") %>\n' +
           '*/\n'
       },
-      less: {
-        src: ['less/Gridles.less'],
-        dest: 'build/Gridles.less'
+      development: {
+        src: ['build/Gridles.css'],
+        dest: 'dist/Gridles.css'
       },
       production: {
         src: ['build/Gridles.min.css'],
         dest: 'dist/Gridles.min.css'
       }
     },
-    copy: {
-      less: {
-        src: 'build/Gridles.less',
-        dest: 'dist/Gridles.less',
-      }
-    },
     clean: {
-      build: ['build/']
+      build: ['build']
     },
     watch: {
+      options: {
+        livereload: true
+      },
       less: {
         files: ['less/*.less'],
         tasks: ['development']
+      },
+      tests: {
+        files: ['tests/**'],
+        tasks: []
       }
     }
   });
 
   grunt.loadNpmTasks('grunt-asciify');
   grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -79,12 +76,13 @@ module.exports = function(grunt) {
   grunt.registerTask('default', function() {
     grunt.task.run(['development']);
     grunt.task.run(['production']);
+    grunt.task.run(['clean:build']);
   });
 
   grunt.registerTask('prod', function() {grunt.task.run(['production'])});
-  grunt.registerTask('production', ['asciify', 'concat:less', 'less:production', 'concat:production', 'clean:build']);
+  grunt.registerTask('production', ['asciify', 'less:production', 'concat:production']);
 
   grunt.registerTask('dev', function() {grunt.task.run(['development'])});
   grunt.registerTask('development',
-    ['asciify', 'concat:less', 'copy:less', 'less:development', 'clean:build']);
+    ['asciify', 'less:development', 'concat:development']);
 };
