@@ -1,9 +1,42 @@
-.gridle {
-	.grid {
-		color: red;
+@import "Variables.less";
+
+.gridles-row {
+	color: red;
+
+	@{column} {
+		border: solid 1px #000;
+		box-sizing: border-box;
+		float: left;
 	}
 
-	.row {
-
-	}
+	@{half}
+	{width: percentage((1 / 2));}
+	@{third}
+	{width: percentage((1 / 3));}
+	@{fourth}
+	{width: percentage((1 / 4));}
+	@{fifth}
+	{width: percentage((1 / 5));}
+	@{sixth}
+	{width: percentage((1 / 6));}
+	@{seventh}
+	{width: percentage((1 / 7));}
+	@{eighth}
+	{width: percentage((1 / 8));}
+	@{ninth}
+	{width: percentage((1 / 9));}
+	@{tenth}
+	{width: percentage((1 / 10));}
+	@{eleventh}
+	{width: percentage((1 / 11));}
+	@{twelfth}
+	{width: percentage((1 / 12));}
+	@{thirteenth}
+	{width: percentage((1 / 13));}
+	@{fourteenth}
+	{width: percentage((1 / 14));}
+	@{fifteenth}
+	{width: percentage((1 / 15));}
+	@{sixteenth}
+	{width: percentage((1 / 16));}
 }
